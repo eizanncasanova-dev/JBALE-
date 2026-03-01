@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Es ce que Jbale est le plus beau</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0066cc 0%, #00ccff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #0066cc;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        #bouton-oui {
+            background-color: #00aa00;
+            color: white;
+            min-width: 100px;
+            min-height: 50px;
+        }
+
+        #bouton-oui:hover {
+            transform: scale(1.1);
+        }
+
+        #bouton-non {
+            background-color: #ff0000;
+            color: white;
+            min-width: 100px;
+            min-height: 50px;
+        }
+
+        #message-gagne {
+            display: none;
+            font-size: 2.5em;
+            color: #00aa00;
+            margin-bottom: 30px;
+            animation: bounce 0.6s ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .logos-container {
+            display: none;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .logo-om {
+            font-size: 4em;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .logo-om:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .logo-om:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .logo-om:nth-child(4) {
+            animation-delay: 0.9s;
+        }
+
+        .logo-om:nth-child(5) {
+            animation-delay: 1.2s;
+        }
+
+        .logo-om:nth-child(6) {
+            animation-delay: 1.5s;
+        }
+
+        .reset-button {
+            display: none;
+            background-color: #0066cc;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .reset-button:hover {
+            background-color: #0052a3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Es ce que Jbale est le plus beau ? 😍</h1>
+        
+        <div id="message-gagne">Tu as raison ! 🎉</div>
+
+        <div class="buttons-container" id="buttons-container">
+            <button id="bouton-oui">OUI</button>
+            <button id="bouton-non">NON</button>
+        </div>
+
+        <div class="logos-container" id="logos-container">
+            <div class="logo-om">⚪🔵</div>
+            <div class="logo-om">⚪🔵</div>
+            <div class="logo-om">⚪🔵</div>
+            <div class="logo-om">⚪🔵</div>
+            <div class="logo-om">⚪🔵</div>
+            <div class="logo-om">⚪🔵</div>
+        </div>
+
+        <button class="reset-button" id="reset-button">Réessayer</button>
+    </div>
+
+    <script>
+        const boutonOui = document.getElementById('bouton-oui');
+        const boutonNon = document.getElementById('bouton-non');
+        const messageGagne = document.getElementById('message-gagne');
+        const logosContainer = document.getElementById('logos-container');
+        const buttonsContainer = document.getElementById('buttons-container');
+        const resetButton = document.getElementById('reset-button');
+
+        let ouiSize = 1;
+
+        // Bouton OUI - agrandir et afficher message
+        boutonOui.addEventListener('click', function() {
+            messageGagne.style.display = 'block';
+            logosContainer.style.display = 'flex';
+            buttonsContainer.style.display = 'none';
+            resetButton.style.display = 'block';
+        });
+
+        // Bouton NON - s'échapper
+        boutonNon.addEventListener('mouseover', function() {
+            const randomX = Math.random() * (window.innerWidth - 200);
+            const randomY = Math.random() * (window.innerHeight - 100);
+            
+            boutonNon.style.position = 'fixed';
+            boutonNon.style.left = randomX + 'px';
+            boutonNon.style.top = randomY + 'px';
+            
+            // Augmenter la taille du bouton OUI
+            ouiSize += 0.2;
+            boutonOui.style.fontSize = ouiSize * 1.2 + 'em';
+            boutonOui.style.padding = (15 * ouiSize) + 'px ' + (30 * ouiSize) + 'px';
+        });
+
+        // Réinitialiser le jeu
+        resetButton.addEventListener('click', function() {
+            location.reload();
+        });
+    </script>
+</body>
+</html>
